@@ -1,0 +1,25 @@
+{
+  "name": "k",
+  "version": "1.0.0",
+  "description": "Files generator",
+  "main": "k.js",
+  "bin": {
+    "k": "k.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git clone https://github.com/k33g/k.git"
+  },
+  "author": "@k33g_org",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "monet": "^0.8.6",
+    "readline-sync": "^1.2.22",
+    "traceur": "0.0.96",
+    "underscore": "^1.8.3"
+  }
+}
