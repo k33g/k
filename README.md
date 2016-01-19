@@ -1,5 +1,8 @@
 # K
 
+## But what is it?
+
+
 ## Install
 
 - `git clone https://github.com/k33g/k.git`
