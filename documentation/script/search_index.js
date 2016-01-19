@@ -1,8 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "k/src/generator.js~generator",
-    "class/src/Generator.js~Generator.html",
-    "<span>Generator</span> <span class=\"search-result-import-path\">k/src/Generator.js</span>",
+    "k/src/kgenerator.js~kgenerator",
+    "class/src/KGenerator.js~KGenerator.html",
+    "<span>KGenerator</span> <span class=\"search-result-import-path\">k/src/KGenerator.js</span>",
     "class"
   ],
   [
@@ -342,45 +342,45 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "src/generator.js",
-    "file/src/Generator.js.html",
-    "src/Generator.js",
+    "src/kgenerator.js",
+    "file/src/KGenerator.js.html",
+    "src/KGenerator.js",
     "file"
   ],
   [
-    "src/generator.js~generator#checkmodule",
-    "class/src/Generator.js~Generator.html#instance-method-checkModule",
-    "src/Generator.js~Generator#checkModule",
+    "src/kgenerator.js~kgenerator#checkmodule",
+    "class/src/KGenerator.js~KGenerator.html#instance-method-checkModule",
+    "src/KGenerator.js~KGenerator#checkModule",
     "method"
   ],
   [
-    "src/generator.js~generator#constructor",
-    "class/src/Generator.js~Generator.html#instance-constructor-constructor",
-    "src/Generator.js~Generator#constructor",
+    "src/kgenerator.js~kgenerator#constructor",
+    "class/src/KGenerator.js~KGenerator.html#instance-constructor-constructor",
+    "src/KGenerator.js~KGenerator#constructor",
     "method"
   ],
   [
-    "src/generator.js~generator#generatefile",
-    "class/src/Generator.js~Generator.html#instance-method-generateFile",
-    "src/Generator.js~Generator#generateFile",
+    "src/kgenerator.js~kgenerator#generatefile",
+    "class/src/KGenerator.js~KGenerator.html#instance-method-generateFile",
+    "src/KGenerator.js~KGenerator#generateFile",
     "method"
   ],
   [
-    "src/generator.js~generator#generatefiles",
-    "class/src/Generator.js~Generator.html#instance-method-generateFiles",
-    "src/Generator.js~Generator#generateFiles",
+    "src/kgenerator.js~kgenerator#generatefiles",
+    "class/src/KGenerator.js~KGenerator.html#instance-method-generateFiles",
+    "src/KGenerator.js~KGenerator#generateFiles",
     "method"
   ],
   [
-    "src/generator.js~generator#loadandexecutetemplate",
-    "class/src/Generator.js~Generator.html#instance-method-loadAndExecuteTemplate",
-    "src/Generator.js~Generator#loadAndExecuteTemplate",
+    "src/kgenerator.js~kgenerator#loadandexecutetemplate",
+    "class/src/KGenerator.js~KGenerator.html#instance-method-loadAndExecuteTemplate",
+    "src/KGenerator.js~KGenerator#loadAndExecuteTemplate",
     "method"
   ],
   [
-    "src/generator.js~generator#templates",
-    "class/src/Generator.js~Generator.html#instance-member-templates",
-    "src/Generator.js~Generator#templates",
+    "src/kgenerator.js~kgenerator#templates",
+    "class/src/KGenerator.js~KGenerator.html#instance-member-templates",
+    "src/KGenerator.js~KGenerator#templates",
     "member"
   ],
   [

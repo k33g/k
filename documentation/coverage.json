@@ -3,7 +3,7 @@
   "expectCount": 14,
   "actualCount": 12,
   "files": {
-    "src/Generator.js": {
+    "src/KGenerator.js": {
       "expectCount": 7,
       "actualCount": 6,
       "undocumentLines": [
