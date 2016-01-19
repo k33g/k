@@ -1,0 +1,1 @@
+Yo <%= data.firstName %> <%= data.lastName %> !

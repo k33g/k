@@ -1,12 +1,21 @@
 {
-  "coverage": "100%",
-  "expectCount": 2,
-  "actualCount": 2,
+  "coverage": "85.71%",
+  "expectCount": 14,
+  "actualCount": 12,
   "files": {
-    "src/Module.js": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
+    "src/Generator.js": {
+      "expectCount": 7,
+      "actualCount": 6,
+      "undocumentLines": [
+        129
+      ]
+    },
+    "src/ModuleLoader.js": {
+      "expectCount": 7,
+      "actualCount": 6,
+      "undocumentLines": [
+        19
+      ]
     }
   }
 }
