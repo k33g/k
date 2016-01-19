@@ -1,1 +1,0 @@
-<h1><%= data.firstName %> <%= data.lastName %> !</h1>
