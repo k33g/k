@@ -11,5 +11,5 @@ traceur.require.makeDefault(function(filename) {
   // don't transpile our dependencies, just our application
   return filename.indexOf('node_modules') === -1;
 });
-require('./src/Generator');
+require('./src/KGenerator');
 

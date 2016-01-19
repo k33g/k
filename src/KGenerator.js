@@ -8,7 +8,7 @@ import _ from 'underscore';
 /**
  * This is the main class
  */
-export default class Generator {
+export default class KGenerator {
 
   /**
    * This method checks if the module has the appropriate properties
@@ -147,6 +147,6 @@ export default class Generator {
 }
 
 //--- go! ---
-new Generator(process.argv);
+new KGenerator(process.argv);
 
 
