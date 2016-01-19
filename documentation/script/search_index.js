@@ -1,8 +1,14 @@
 window.esdocSearchIndex = [
   [
-    "k/src/module.js~module",
-    "class/src/Module.js~Module.html",
-    "<span>Module</span> <span class=\"search-result-import-path\">k/src/Module.js</span>",
+    "k/src/generator.js~generator",
+    "class/src/Generator.js~Generator.html",
+    "<span>Generator</span> <span class=\"search-result-import-path\">k/src/Generator.js</span>",
+    "class"
+  ],
+  [
+    "k/src/moduleloader.js~moduleloader",
+    "class/src/ModuleLoader.js~ModuleLoader.html",
+    "<span>ModuleLoader</span> <span class=\"search-result-import-path\">k/src/ModuleLoader.js</span>",
     "class"
   ],
   [
@@ -336,22 +342,88 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "src/module.js",
-    "file/src/Module.js.html",
-    "src/Module.js",
+    "src/generator.js",
+    "file/src/Generator.js.html",
+    "src/Generator.js",
     "file"
   ],
   [
-    "src/module.js~module#name",
-    "class/src/Module.js~Module.html#instance-method-name",
-    "src/Module.js~Module#name",
+    "src/generator.js~generator#checkmodule",
+    "class/src/Generator.js~Generator.html#instance-method-checkModule",
+    "src/Generator.js~Generator#checkModule",
     "method"
   ],
   [
-    "src/generator.js",
-    "file/src/generator.js.html",
-    "src/generator.js",
+    "src/generator.js~generator#constructor",
+    "class/src/Generator.js~Generator.html#instance-constructor-constructor",
+    "src/Generator.js~Generator#constructor",
+    "method"
+  ],
+  [
+    "src/generator.js~generator#generatefile",
+    "class/src/Generator.js~Generator.html#instance-method-generateFile",
+    "src/Generator.js~Generator#generateFile",
+    "method"
+  ],
+  [
+    "src/generator.js~generator#generatefiles",
+    "class/src/Generator.js~Generator.html#instance-method-generateFiles",
+    "src/Generator.js~Generator#generateFiles",
+    "method"
+  ],
+  [
+    "src/generator.js~generator#loadandexecutetemplate",
+    "class/src/Generator.js~Generator.html#instance-method-loadAndExecuteTemplate",
+    "src/Generator.js~Generator#loadAndExecuteTemplate",
+    "method"
+  ],
+  [
+    "src/generator.js~generator#templates",
+    "class/src/Generator.js~Generator.html#instance-member-templates",
+    "src/Generator.js~Generator#templates",
+    "member"
+  ],
+  [
+    "src/moduleloader.js",
+    "file/src/ModuleLoader.js.html",
+    "src/ModuleLoader.js",
     "file"
+  ],
+  [
+    "src/moduleloader.js~moduleloader#constructor",
+    "class/src/ModuleLoader.js~ModuleLoader.html#instance-constructor-constructor",
+    "src/ModuleLoader.js~ModuleLoader#constructor",
+    "method"
+  ],
+  [
+    "src/moduleloader.js~moduleloader#filesnames",
+    "class/src/ModuleLoader.js~ModuleLoader.html#instance-method-filesNames",
+    "src/ModuleLoader.js~ModuleLoader#filesNames",
+    "method"
+  ],
+  [
+    "src/moduleloader.js~moduleloader#getmodule",
+    "class/src/ModuleLoader.js~ModuleLoader.html#instance-method-getModule",
+    "src/ModuleLoader.js~ModuleLoader#getModule",
+    "method"
+  ],
+  [
+    "src/moduleloader.js~moduleloader#loadkmodule",
+    "class/src/ModuleLoader.js~ModuleLoader.html#instance-method-loadKModule",
+    "src/ModuleLoader.js~ModuleLoader#loadKModule",
+    "method"
+  ],
+  [
+    "src/moduleloader.js~moduleloader#name",
+    "class/src/ModuleLoader.js~ModuleLoader.html#instance-method-name",
+    "src/ModuleLoader.js~ModuleLoader#name",
+    "method"
+  ],
+  [
+    "src/moduleloader.js~moduleloader#parameters",
+    "class/src/ModuleLoader.js~ModuleLoader.html#instance-member-parameters",
+    "src/ModuleLoader.js~ModuleLoader#parameters",
+    "member"
   ],
   [
     "src/tests/0.js",
