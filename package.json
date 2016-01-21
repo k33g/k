@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "colors": "^1.1.2",
+    "mkdirp": "^0.5.1",
     "monet": "^0.8.6",
     "readline-sync": "^1.2.22",
     "traceur": "0.0.96",
