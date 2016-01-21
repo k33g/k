@@ -1,6 +1,6 @@
 module.exports = {
   data: {
-    firstName:"Bob",
+    firstName:"--- BOB ---",
     lastName:"Morane"
   },
   templates:[

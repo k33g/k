@@ -27,6 +27,7 @@
 - underscore
 - monet
 - colors
+- mkdirp [https://github.com/substack/node-mkdirp](https://github.com/substack/node-mkdirp)
 
 
 ## Resources
