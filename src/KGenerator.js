@@ -3,6 +3,7 @@ import ModuleLoader from './ModuleLoader';
 import colors from 'colors';
 import fs from 'fs';
 import _ from 'underscore';
+import mkdirp from 'mkdirp';
 
 
 /**
@@ -56,7 +57,7 @@ export default class KGenerator {
 
     try {
       fs.writeFileSync(
-        process.cwd() + generatedFileName
+        process.cwd()+ "/" +generatedFileName
         , compiledTemplate({data : data})
       );
       return monet.Maybe.Some(true)
@@ -68,21 +69,48 @@ export default class KGenerator {
 
   /**
    *
+   * @param {String} path
+   */
+  createDirectory(path) {
+    try {
+      return monet.Maybe.Some(mkdirp.sync(process.cwd() + "/" + path));
+    } catch(e) { // if path exists -> Illegal state exception
+      return monet.Maybe.None();
+    }
+  }
+
+  /**
+   *
    * @param {JavaScriptModule} module is the loaded module
    * @param {String} moduleName
    * @param {MayBe} mayBeFiles value is an array of files to be generated
+   * @param {MayBe} mayBeDestination
    */
-  generateFiles(module, moduleName, mayBeFiles) {
+  generateFiles(module, moduleName, mayBeFiles, mayBeDestination) {
 
-    console.log("mayBeFiles".green, mayBeFiles)
-    console.log("mayBeFiles.val".yellow, mayBeFiles.val)
+    console.log("mayBeFiles".green, mayBeFiles);
+    console.log("mayBeFiles.val".yellow, mayBeFiles.val);
+
+    console.log("mayBeDestination".green, mayBeDestination);
+    console.log("mayBeDestination.val".yellow, mayBeDestination.orSome(""));
+
+
+    var destination = "";
+    mayBeDestination.toEither("No path").cata((message) => {
+      console.info(message.blue);
+    }, (path) => {
+      this.createDirectory(path);
+      // TODO: deals with other errors than "Illegal state exception"
+      destination = "/"+path+"/";
+    });
+
 
     mayBeFiles.toEither("You probably forgot to input parameters")
       .cata(
         (error)=>{
           console.info(error.red);
         },
-        (arrayOfFilesNameToBeGenerated) => {
+        (arrayOfFilesNameToBeGenerated) => { // generation for each file
           console.log("Module name:".blue, moduleName);
           console.log("Generated files:".blue, arrayOfFilesNameToBeGenerated);
 
@@ -94,28 +122,33 @@ export default class KGenerator {
 
             console.log("templateName:".magenta, templateName);
 
-            this.loadAndExecuteTemplate(moduleName, templateName).toEither(`There is a problem with the template: ${templateName}.`)
-              .cata((error) => {
+            this.loadAndExecuteTemplate(moduleName, templateName)
+              .toEither(`There is a problem with the template: ${templateName}.`)
+              .cata(
+                (error) => {
                 console.info(error.red)
-              }, (compiledTemplate) => {
+                }, (compiledTemplate) => {
 
-                var index = arrayOfFilesNameToBeGenerated.length == 1 ? 0 : templates.indexOf(templateName);
-                var generatedFileName = "/" + arrayOfFilesNameToBeGenerated[index] +"." + module.extensions[templates.indexOf(templateName)];
+                  let index = arrayOfFilesNameToBeGenerated.length == 1 ? 0 : templates.indexOf(templateName);
+                  let generatedFileName =
+                    destination +
+                    arrayOfFilesNameToBeGenerated[index] +
+                    "." + module.extensions[templates.indexOf(templateName)];
 
-                //---
-                this.generateFile(generatedFileName, compiledTemplate, module.data).toEither(`There is a problem when generating ${generatedFileName}.`)
-                  .cata((error) => {
-                    console.info(error.red)
-                  }, (value) => {
-                    console.log("generatedFileName:".magenta, generatedFileName);
-                  });
 
-              });
+                  this.generateFile(generatedFileName, compiledTemplate, module.data)
+                    .toEither(`There is a problem when generating ${generatedFileName}.`)
+                    .cata((error) => {
+                      console.info(error.red)
+                    }, (value) => {
+                      console.log("generatedFileName:".magenta, generatedFileName);
+                    });
 
-          });
+                }); // end of cata
 
-        }
-      )
+          }); // end of templates.forEach
+        } // end of generation for each file
+      ) // end of cata
 
   }
 
@@ -139,7 +172,12 @@ export default class KGenerator {
       }, (module) => {
         console.info("module".blue, module);
 
-        this.generateFiles(module, moduleLoader.name().val, moduleLoader.filesNames());
+        this.generateFiles(
+          module,
+          moduleLoader.name().val,
+          moduleLoader.filesNames(),
+          moduleLoader.destination()
+        );
 
       })
 

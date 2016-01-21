@@ -29,6 +29,14 @@ export default class ModuleLoader {
     }
   }
 
+  destination(path) {
+    try {
+      return monet.Maybe.Some(this.parameters[4]);
+    } catch (e) {
+      return monet.Maybe.None();
+    }
+  }
+
   /**
    * @returns {Maybe} value of Maybe is an array of string or null if error
    */
