@@ -121,9 +121,6 @@ export default class KGenerator {
           // Useful if you want that the function or class has the name of the file
           module.data.filesNames = arrayOfFilesNameToBeGenerated;
 
-
-          console.log("filesNames:".blue, module.filesNames);
-
           console.log("templates:".blue, templates);
 
           templates.forEach((templateName) => {
@@ -157,7 +154,7 @@ export default class KGenerator {
 
           }); // end of templates.forEach
         } // end of generation for each file
-      ) // end of cata
+      ); // end of cata
 
   }
 
@@ -179,8 +176,7 @@ export default class KGenerator {
       .cata((error) => {
         console.info(error.red)
       }, (module) => {
-        console.info("module".blue, module);
-
+        //console.info("module".blue, module);
 
         this.generateFiles(
           module,
