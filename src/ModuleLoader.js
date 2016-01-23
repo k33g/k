@@ -15,7 +15,7 @@ export default class ModuleLoader {
    * The next elements will be any additional command line arguments.
    */
   constructor(parameters) {
-    //console.log("parameters", colors.green(parameters));
+    console.log("[ModuleLoader]parameters", colors.green(parameters));
     this.parameters = parameters;
   }
   /**
@@ -29,7 +29,10 @@ export default class ModuleLoader {
     }
   }
 
-  destination(path) {
+  /**
+   * @returns {Maybe} value of Maybe is the destination path (to generate files) or null if error
+   */
+  destination() {
     try {
       return monet.Maybe.Some(this.parameters[4]);
     } catch (e) {
@@ -83,8 +86,6 @@ export default class ModuleLoader {
           });
 
       });
-
   }
-
 
 }

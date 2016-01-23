@@ -184,7 +184,5 @@ export default class KGenerator {
   }
 }
 
-//--- go! ---
-new KGenerator(process.argv);
 
 

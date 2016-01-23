@@ -360,6 +360,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/kgenerator.js~kgenerator#createdirectory",
+    "class/src/KGenerator.js~KGenerator.html#instance-method-createDirectory",
+    "src/KGenerator.js~KGenerator#createDirectory",
+    "method"
+  ],
+  [
     "src/kgenerator.js~kgenerator#generatefile",
     "class/src/KGenerator.js~KGenerator.html#instance-method-generateFile",
     "src/KGenerator.js~KGenerator#generateFile",
@@ -396,6 +402,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/moduleloader.js~moduleloader#destination",
+    "class/src/ModuleLoader.js~ModuleLoader.html#instance-method-destination",
+    "src/ModuleLoader.js~ModuleLoader#destination",
+    "method"
+  ],
+  [
     "src/moduleloader.js~moduleloader#filesnames",
     "class/src/ModuleLoader.js~ModuleLoader.html#instance-method-filesNames",
     "src/ModuleLoader.js~ModuleLoader#filesNames",
@@ -426,9 +438,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/tests/0.js",
-    "file/src/tests/0.js.html",
-    "src/tests/0.js",
+    "src/run.js",
+    "file/src/run.js.html",
+    "src/run.js",
     "file"
   ]
 ]
