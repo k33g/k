@@ -1,4 +1,5 @@
-//var readlineSync = require('readline-sync');
+var colors = require('colors');
+
 module.exports = {
   data: {
     firstName:"Bob",
@@ -9,5 +10,11 @@ module.exports = {
   ],
   extensions:[
     'txt'
-  ]
+  ],
+  before: () => {
+    console.log("Starting...".red)
+  },
+  after: () => {
+    console.log("This is the End.".green)
+  }
 }

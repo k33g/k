@@ -23,8 +23,8 @@ export default class KGenerator {
       console.info(error.red)
       return monet.Maybe.None();
     }, (module) => {
-      // check if data and templates exists
-      return module.data && module.templates && module.extensions
+      // check if data and templates exists or if the module is a tool
+      return (module.data && module.templates && module.extensions) || module.tool
         ? monet.Maybe.Some(module) : monet.Maybe.None();
     });
   }
@@ -89,11 +89,15 @@ export default class KGenerator {
    */
   generateFiles(module, moduleName, mayBeFiles, mayBeDestination) {
 
+    module.before ? module.before() : monet.Maybe.None();
+
+    /*
     console.log("mayBeFiles".green, mayBeFiles);
     console.log("mayBeFiles.val".yellow, mayBeFiles.val);
 
     console.log("mayBeDestination".green, mayBeDestination);
     console.log("mayBeDestination.val".yellow, mayBeDestination.orSome(""));
+    */
 
 
     var destination = "";
@@ -103,6 +107,14 @@ export default class KGenerator {
       this.createDirectory(path);
       // TODO: deals with other errors than "Illegal state exception"
       destination = "/"+path+"/";
+
+      if(module.targets) {
+        module.targets.filter((target) => { return target!=="" }).forEach((target) => {
+          this.createDirectory(destination+target);
+        })
+      }
+
+
     });
 
 
@@ -136,11 +148,11 @@ export default class KGenerator {
 
                   let index = arrayOfFilesNameToBeGenerated.length == 1 ? 0 : templates.indexOf(templateName);
                   let generatedFileName =
-                    destination +
+                    destination + (module.targets!==undefined ? module.targets[templates.indexOf(templateName)] : "") +
                     arrayOfFilesNameToBeGenerated[index] +
                     "." + module.extensions[templates.indexOf(templateName)];
 
-                  console.log("module.data", module.data)
+                  //console.log("module.data", module.data)
 
                   this.generateFile(generatedFileName, compiledTemplate, module.data)
                     .toEither(`There is a problem when generating ${generatedFileName}.`)
@@ -153,6 +165,9 @@ export default class KGenerator {
                 }); // end of cata
 
           }); // end of templates.forEach
+
+          module.after ? module.after() : monet.Maybe.None();
+
         } // end of generation for each file
       ); // end of cata
 
@@ -178,12 +193,14 @@ export default class KGenerator {
       }, (module) => {
         //console.info("module".blue, module);
 
-        this.generateFiles(
-          module,
-          moduleLoader.name().val,
-          moduleLoader.filesNames(),
-          moduleLoader.destination()
-        );
+        !module.tool ?
+            this.generateFiles(
+              module,
+              moduleLoader.name().val,
+              moduleLoader.filesNames(),
+              moduleLoader.destination()
+            )
+          : monet.Maybe.None() // do nothing
 
       })
 

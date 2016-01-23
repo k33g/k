@@ -8,5 +8,11 @@ module.exports = {
   ],
   extensions:[
     'js', 'html'
-  ]
-}
+  ],
+  before: () => {
+    console.log("Starting...".red)
+  },
+  after: () => {
+    console.log("This is the End.".green)
+  }
+};
