@@ -81,8 +81,8 @@ export default class ModuleLoader {
           .cata((error) => {
             console.log(colors.red(error));
             return monet.Maybe.None();
-          }, (value) => { // value is the js loaded module
-            return monet.Maybe.Some(value);
+          }, (myModule) => { // myModule is the js loaded module
+            return monet.Maybe.Some(myModule);
           });
 
       });

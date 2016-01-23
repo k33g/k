@@ -62,6 +62,7 @@ export default class KGenerator {
       );
       return monet.Maybe.Some(true)
     } catch(e) {
+      console.log("Exception when generateFile", e)
       return monet.Maybe.None();
     }
 
@@ -116,6 +117,13 @@ export default class KGenerator {
 
           let templates = module.templates;
 
+          // Add some informations to module.data
+          // Useful if you want that the function or class has the name of the file
+          module.data.filesNames = arrayOfFilesNameToBeGenerated;
+
+
+          console.log("filesNames:".blue, module.filesNames);
+
           console.log("templates:".blue, templates);
 
           templates.forEach((templateName) => {
@@ -135,6 +143,7 @@ export default class KGenerator {
                     arrayOfFilesNameToBeGenerated[index] +
                     "." + module.extensions[templates.indexOf(templateName)];
 
+                  console.log("module.data", module.data)
 
                   this.generateFile(generatedFileName, compiledTemplate, module.data)
                     .toEither(`There is a problem when generating ${generatedFileName}.`)
@@ -171,6 +180,7 @@ export default class KGenerator {
         console.info(error.red)
       }, (module) => {
         console.info("module".blue, module);
+
 
         this.generateFiles(
           module,
