@@ -44,6 +44,7 @@ import ModuleLoader from &apos;./ModuleLoader&apos;;
 import colors from &apos;colors&apos;;
 import fs from &apos;fs&apos;;
 import _ from &apos;underscore&apos;;
+import mkdirp from &apos;mkdirp&apos;;
 
 
 /**
@@ -97,7 +98,7 @@ export default class KGenerator {
 
     try {
       fs.writeFileSync(
-        process.cwd() + generatedFileName
+        process.cwd()+ &quot;/&quot; +generatedFileName
         , compiledTemplate({data : data})
       );
       return monet.Maybe.Some(true)
@@ -109,21 +110,48 @@ export default class KGenerator {
 
   /**
    *
+   * @param {String} path
+   */
+  createDirectory(path) {
+    try {
+      return monet.Maybe.Some(mkdirp.sync(process.cwd() + &quot;/&quot; + path));
+    } catch(e) { // if path exists -&gt; Illegal state exception
+      return monet.Maybe.None();
+    }
+  }
+
+  /**
+   *
    * @param {JavaScriptModule} module is the loaded module
    * @param {String} moduleName
    * @param {MayBe} mayBeFiles value is an array of files to be generated
+   * @param {MayBe} mayBeDestination
    */
-  generateFiles(module, moduleName, mayBeFiles) {
+  generateFiles(module, moduleName, mayBeFiles, mayBeDestination) {
 
-    console.log(&quot;mayBeFiles&quot;.green, mayBeFiles)
-    console.log(&quot;mayBeFiles.val&quot;.yellow, mayBeFiles.val)
+    console.log(&quot;mayBeFiles&quot;.green, mayBeFiles);
+    console.log(&quot;mayBeFiles.val&quot;.yellow, mayBeFiles.val);
+
+    console.log(&quot;mayBeDestination&quot;.green, mayBeDestination);
+    console.log(&quot;mayBeDestination.val&quot;.yellow, mayBeDestination.orSome(&quot;&quot;));
+
+
+    var destination = &quot;&quot;;
+    mayBeDestination.toEither(&quot;No path&quot;).cata((message) =&gt; {
+      console.info(message.blue);
+    }, (path) =&gt; {
+      this.createDirectory(path);
+      // TODO: deals with other errors than &quot;Illegal state exception&quot;
+      destination = &quot;/&quot;+path+&quot;/&quot;;
+    });
+
 
     mayBeFiles.toEither(&quot;You probably forgot to input parameters&quot;)
       .cata(
         (error)=&gt;{
           console.info(error.red);
         },
-        (arrayOfFilesNameToBeGenerated) =&gt; {
+        (arrayOfFilesNameToBeGenerated) =&gt; { // generation for each file
           console.log(&quot;Module name:&quot;.blue, moduleName);
           console.log(&quot;Generated files:&quot;.blue, arrayOfFilesNameToBeGenerated);
 
@@ -135,28 +163,33 @@ export default class KGenerator {
 
             console.log(&quot;templateName:&quot;.magenta, templateName);
 
-            this.loadAndExecuteTemplate(moduleName, templateName).toEither(`There is a problem with the template: ${templateName}.`)
-              .cata((error) =&gt; {
+            this.loadAndExecuteTemplate(moduleName, templateName)
+              .toEither(`There is a problem with the template: ${templateName}.`)
+              .cata(
+                (error) =&gt; {
                 console.info(error.red)
-              }, (compiledTemplate) =&gt; {
+                }, (compiledTemplate) =&gt; {
 
-                var index = arrayOfFilesNameToBeGenerated.length == 1 ? 0 : templates.indexOf(templateName);
-                var generatedFileName = &quot;/&quot; + arrayOfFilesNameToBeGenerated[index] +&quot;.&quot; + module.extensions[templates.indexOf(templateName)];
+                  let index = arrayOfFilesNameToBeGenerated.length == 1 ? 0 : templates.indexOf(templateName);
+                  let generatedFileName =
+                    destination +
+                    arrayOfFilesNameToBeGenerated[index] +
+                    &quot;.&quot; + module.extensions[templates.indexOf(templateName)];
 
-                //---
-                this.generateFile(generatedFileName, compiledTemplate, module.data).toEither(`There is a problem when generating ${generatedFileName}.`)
-                  .cata((error) =&gt; {
-                    console.info(error.red)
-                  }, (value) =&gt; {
-                    console.log(&quot;generatedFileName:&quot;.magenta, generatedFileName);
-                  });
 
-              });
+                  this.generateFile(generatedFileName, compiledTemplate, module.data)
+                    .toEither(`There is a problem when generating ${generatedFileName}.`)
+                    .cata((error) =&gt; {
+                      console.info(error.red)
+                    }, (value) =&gt; {
+                      console.log(&quot;generatedFileName:&quot;.magenta, generatedFileName);
+                    });
 
-          });
+                }); // end of cata
 
-        }
-      )
+          }); // end of templates.forEach
+        } // end of generation for each file
+      ) // end of cata
 
   }
 
@@ -180,15 +213,18 @@ export default class KGenerator {
       }, (module) =&gt; {
         console.info(&quot;module&quot;.blue, module);
 
-        this.generateFiles(module, moduleLoader.name().val, moduleLoader.filesNames());
+        this.generateFiles(
+          module,
+          moduleLoader.name().val,
+          moduleLoader.filesNames(),
+          moduleLoader.destination()
+        );
 
       })
 
   }
 }
 
-//--- go! ---
-new KGenerator(process.argv);
 
 
 </code></pre>

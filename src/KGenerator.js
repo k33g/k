@@ -20,11 +20,11 @@ export default class KGenerator {
   checkModule(mayBeModule) {
 
     return mayBeModule.toEither("Impossible to load the module").cata((error) =>{
-      console.info(error.red)
+      console.info(error.red);
       return monet.Maybe.None();
     }, (module) => {
-      // check if data and templates exists
-      return module.data && module.templates && module.extensions
+      // check if data and templates exists or if the module is a tool
+      return (module.data && module.templates && module.extensions) || module.tool
         ? monet.Maybe.Some(module) : monet.Maybe.None();
     });
   }
@@ -62,6 +62,7 @@ export default class KGenerator {
       );
       return monet.Maybe.Some(true)
     } catch(e) {
+      //console.log("Exception when generateFile", e);
       return monet.Maybe.None();
     }
 
@@ -88,12 +89,7 @@ export default class KGenerator {
    */
   generateFiles(module, moduleName, mayBeFiles, mayBeDestination) {
 
-    console.log("mayBeFiles".green, mayBeFiles);
-    console.log("mayBeFiles.val".yellow, mayBeFiles.val);
-
-    console.log("mayBeDestination".green, mayBeDestination);
-    console.log("mayBeDestination.val".yellow, mayBeDestination.orSome(""));
-
+    module.before ? module.before() : monet.Maybe.None();
 
     var destination = "";
     mayBeDestination.toEither("No path").cata((message) => {
@@ -102,6 +98,12 @@ export default class KGenerator {
       this.createDirectory(path);
       // TODO: deals with other errors than "Illegal state exception"
       destination = "/"+path+"/";
+
+      if(module.targets) {
+        module.targets.filter((target) => { return target!=="" }).forEach((target) => {
+          this.createDirectory(destination+target);
+        })
+      }
     });
 
 
@@ -115,6 +117,10 @@ export default class KGenerator {
           console.log("Generated files:".blue, arrayOfFilesNameToBeGenerated);
 
           let templates = module.templates;
+
+          // Add some informations to module.data
+          // Useful if you want that the function or class has the name of the file
+          module.data.filesNames = arrayOfFilesNameToBeGenerated;
 
           console.log("templates:".blue, templates);
 
@@ -131,10 +137,9 @@ export default class KGenerator {
 
                   let index = arrayOfFilesNameToBeGenerated.length == 1 ? 0 : templates.indexOf(templateName);
                   let generatedFileName =
-                    destination +
+                    destination + (module.targets!==undefined ? module.targets[templates.indexOf(templateName)] : "") +
                     arrayOfFilesNameToBeGenerated[index] +
                     "." + module.extensions[templates.indexOf(templateName)];
-
 
                   this.generateFile(generatedFileName, compiledTemplate, module.data)
                     .toEither(`There is a problem when generating ${generatedFileName}.`)
@@ -147,8 +152,11 @@ export default class KGenerator {
                 }); // end of cata
 
           }); // end of templates.forEach
+
+          module.after ? module.after() : monet.Maybe.None();
+
         } // end of generation for each file
-      ) // end of cata
+      ); // end of cata
 
   }
 
@@ -170,21 +178,21 @@ export default class KGenerator {
       .cata((error) => {
         console.info(error.red)
       }, (module) => {
-        console.info("module".blue, module);
+        //console.info("module".blue, module);
 
-        this.generateFiles(
-          module,
-          moduleLoader.name().val,
-          moduleLoader.filesNames(),
-          moduleLoader.destination()
-        );
+        !module.tool ?
+            this.generateFiles(
+              module,
+              moduleLoader.name().val,
+              moduleLoader.filesNames(),
+              moduleLoader.destination()
+            )
+          : monet.Maybe.None(); // do nothing
 
       })
 
   }
 }
 
-//--- go! ---
-new KGenerator(process.argv);
 
 

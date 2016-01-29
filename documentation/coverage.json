@@ -1,18 +1,18 @@
 {
-  "coverage": "85.71%",
-  "expectCount": 14,
-  "actualCount": 12,
+  "coverage": "87.5%",
+  "expectCount": 16,
+  "actualCount": 14,
   "files": {
     "src/KGenerator.js": {
-      "expectCount": 7,
-      "actualCount": 6,
+      "expectCount": 8,
+      "actualCount": 7,
       "undocumentLines": [
-        129
+        162
       ]
     },
     "src/ModuleLoader.js": {
-      "expectCount": 7,
-      "actualCount": 6,
+      "expectCount": 8,
+      "actualCount": 7,
       "undocumentLines": [
         19
       ]

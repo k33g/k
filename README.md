@@ -29,6 +29,9 @@
 - colors
 - mkdirp [https://github.com/substack/node-mkdirp](https://github.com/substack/node-mkdirp)
 
+### Create a module
+
+WIP...
 
 ## Resources
 

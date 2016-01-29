@@ -1,6 +1,6 @@
 module.exports = {
   data: {
-    firstName:"--- BOB ---",
+    firstName:"Bob",
     lastName:"Morane"
   },
   templates:[
@@ -8,5 +8,11 @@ module.exports = {
   ],
   extensions:[
     'js', 'html'
-  ]
-}
+  ],
+  before: () => {
+    console.log("Starting...".red)
+  },
+  after: () => {
+    console.log("This is the End.".green)
+  }
+};
