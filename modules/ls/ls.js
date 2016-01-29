@@ -26,7 +26,7 @@ module.exports = {
   tool: true
 };
 
-console.log("--- k modules list ---".blue)
+console.log("--- k modules list ---".blue);
 getDirectories(__dirname + "/..")
   .orSome([])
   .forEach(function(module) {

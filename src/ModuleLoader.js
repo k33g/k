@@ -15,7 +15,6 @@ export default class ModuleLoader {
    * The next elements will be any additional command line arguments.
    */
   constructor(parameters) {
-    //console.log("[ModuleLoader]parameters", colors.green(parameters));
     this.parameters = parameters;
   }
   /**

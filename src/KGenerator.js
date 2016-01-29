@@ -20,7 +20,7 @@ export default class KGenerator {
   checkModule(mayBeModule) {
 
     return mayBeModule.toEither("Impossible to load the module").cata((error) =>{
-      console.info(error.red)
+      console.info(error.red);
       return monet.Maybe.None();
     }, (module) => {
       // check if data and templates exists or if the module is a tool
@@ -62,7 +62,7 @@ export default class KGenerator {
       );
       return monet.Maybe.Some(true)
     } catch(e) {
-      console.log("Exception when generateFile", e)
+      //console.log("Exception when generateFile", e);
       return monet.Maybe.None();
     }
 
@@ -91,15 +91,6 @@ export default class KGenerator {
 
     module.before ? module.before() : monet.Maybe.None();
 
-    /*
-    console.log("mayBeFiles".green, mayBeFiles);
-    console.log("mayBeFiles.val".yellow, mayBeFiles.val);
-
-    console.log("mayBeDestination".green, mayBeDestination);
-    console.log("mayBeDestination.val".yellow, mayBeDestination.orSome(""));
-    */
-
-
     var destination = "";
     mayBeDestination.toEither("No path").cata((message) => {
       console.info(message.blue);
@@ -113,8 +104,6 @@ export default class KGenerator {
           this.createDirectory(destination+target);
         })
       }
-
-
     });
 
 
@@ -151,8 +140,6 @@ export default class KGenerator {
                     destination + (module.targets!==undefined ? module.targets[templates.indexOf(templateName)] : "") +
                     arrayOfFilesNameToBeGenerated[index] +
                     "." + module.extensions[templates.indexOf(templateName)];
-
-                  //console.log("module.data", module.data)
 
                   this.generateFile(generatedFileName, compiledTemplate, module.data)
                     .toEither(`There is a problem when generating ${generatedFileName}.`)
@@ -200,7 +187,7 @@ export default class KGenerator {
               moduleLoader.filesNames(),
               moduleLoader.destination()
             )
-          : monet.Maybe.None() // do nothing
+          : monet.Maybe.None(); // do nothing
 
       })
 
